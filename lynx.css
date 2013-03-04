@@ -1,0 +1,448 @@
+/* lynx.css 
+ *
+ * by William Clifford (wobh@yahoo.com)
+ *
+ * $Id: lynx.css,v 0.12 2003/12/09 08:24:52 wobh Exp wobh $ 
+ */
+
+/* This style is designed to make modern, css conforming browsers
+ * display like lynx from a command shell.
+ *
+ * This has been extensively tested in mozilla-firebird for linux.
+ * Please help by testing it in your pages and telling me what's wacky.
+ * Note: sometimes it should be wacky until browser CSS support
+ * improves.
+ */
+
+/* A note on lengths. The best strategy so far has been to use em's for
+ * heights and ex's for widths. I've tried mixing this up as well as
+ * trying to use a consistent measure and it hasn't worked out as well.
+ */
+
+
+/* Body */
+
+body { 
+	background-color: black;
+	color: white;
+	font: normal medium monospace;
+	width: 80ex;
+	margin: 1em auto auto 3ex;
+}
+
+
+/* Blocks */
+
+div, p {
+	margin: 1em auto auto 0ex;
+	font: normal medium monospace; 
+	width: 80ex;
+}
+
+pre { 
+	font: normal medium monospace;
+	width: 80ex;
+	margin: 1em auto auto -3ex;
+}
+
+blockquote {
+	font: normal medium monospace;
+	width: 79ex;
+	margin: 1em auto auto 2ex;
+}
+
+
+/* Lists */
+
+dl {
+	margin: 1em auto auto 0ex;
+	font: normal medium monospace; 
+	width: 78ex;
+}
+
+/* This is redundant:
+dt { margin: 1em auto auto 0ex; } 
+ */
+
+dd {
+	margin: 0em auto 1em 7ex;
+	font: normal medium monospace; 
+	width: 72ex;
+}
+
+/* For unordered lists we should use an "* " for the marker. However,
+ * this fails even in fire-bird: 
+
+ul li:before {
+	display: marker;
+	content: "* ";
+} 
+
+ * the :before pseudo-class and content and display property are CSS2
+ * features that, at present (11/4/03) aren't supported in common
+ * versions of internet explorer. But they are cool. See: 
+
+http://www.w3.org/TR/REC-CSS2/generate.html
+ */
+
+
+/* Tables */
+
+table { margin: 1em auto auto 0ex; }
+
+th, td { 
+	font: normal medium monospace;
+	text-align: left;
+}
+
+caption {
+	margin: 1em auto 1em 0ex; 
+	text-align: left;
+	width: 65ex;
+}
+
+caption:before { 
+	content: "CAPTION: ";
+	display: inline;
+	color: fuchsia;
+} /* this seems to fail gracefully in IE */
+
+
+/* Text */
+
+em, strong, cite {
+	font: normal medium monospace;
+	color: fuchsia; 
+}
+
+dfn, code, samp, kbd, var, abbr, acronym, ins, del {
+	font: normal medium monospace;
+	text-decoration: none;
+	border: none;
+}
+
+/* Interesting thing. It seems as though mozilla firebird (0.6.1) does
+ * this dotted underline thing for abbreviations and acronyms and a
+ * stylesheet just can't tell it to do otherwise.
+ * 
+ * Update: The dotted underline thing is because it is a border, not a
+ * decoration. Now it is fixed.
+ */
+
+/* more css2 to handle inserted and deleted text elements */
+
+ins:before, ins:after, del:before, del:after {
+	display: inline;
+	color: fuchsia;
+}
+
+ins:before { content: "[INS: "; }
+del:before { content: "[DEL: "; }
+ins:after { content: " :INS] "; }
+del:after { content: " :DEL] "; }
+
+/* See that extra space after the end marker there? Lynx inserts this
+ * for you. Silly, but true.
+ */
+
+
+/* Address */
+
+/* Did you know there's an address element? Neither did I but, there it is:
+
+http://www.w3.org/TR/html401/struct/global.html#h-7.5.6
+
+ * It looks like it's supposed to be an inline element that behaves like
+ * a block. Anyway, lynx does something like this with it:
+ */
+
+address {
+	font: normal medium monospace;
+	text-decoration: none;
+	margin: 2em auto 1em 1ex;
+}
+
+
+/* Style elements */
+
+/* u and strike are depreciated */
+
+tt, i, b, big, small, u, strike {
+	font: normal medium monospace;
+	text-decoration: none;
+}
+
+i, b, u {
+	color: fuchsia; 
+}
+
+/* strike elements look just like del */
+
+strike:before, strike:after {
+	display: inline;
+	color: fuchsia;
+}
+
+strike:before { content: "[DEL: "; }
+strike:after { content: " :DEL] "; }
+
+
+/* Rules */
+
+/* A basic rule in lynx is displayed as line of 65 underscores indented
+ * five characters in with a empty row after it. Two ways of doing this:
+ */
+
+/* Trying to mimic what lynx outputs. It appears as though mimicry is
+ * better than fidelity.
+ */
+hr {
+	border: none;
+	height: 1em;
+	width: 75ex;
+	border-bottom: thin dashed white; 
+	margin: auto auto 1em 2ex;
+}
+
+/* Trying to output what lynx outputs
+hr {
+	border: none;
+}
+
+hr:before {
+	margin: auto auto auto 2ex;
+	content: "_________________________________________________________________";
+}
+ */
+
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+	font: normal medium monospace;
+/* why is this here?
+	width: 81ex; 
+ */
+}
+
+h1 { 
+	text-align: center;
+	margin: 1em auto auto auto;
+}
+
+h2 { margin: 1em auto auto -3ex; }
+h3 { margin: 1em auto auto -1ex; }
+h4 { margin: 1em auto auto 1ex; }
+h5 { margin: 1em auto auto 3ex; }
+h6 { margin: 1em auto auto 5ex; }
+
+
+/* Images */
+
+/* For now, just make images go away
+ */
+
+img { display: none; }
+
+/* lynx behavior is to display the alt text if available, otherwise
+ * display, the file name. Obviously, the image itself cannot be
+ * displayed. I can't think of a way to make css do this exactly. 
+ *
+ * These two rules should display what needs to be displayed.
+ */
+
+img:before {
+	display: marker;
+	content: "[" attr(src) "]"; 
+} 
+
+img[alt]:before { 
+	display: marker;
+	content: attr(alt); 
+}
+
+/* FIXME: The image src displays the full path to the image, not just
+ * the image name. There's probably not a way to do that.
+ *
+ * TODO: figure out how to display this and not display the images at
+ * all.
+
+ * If you position the image out of the visual area of the screen the
+ * text goes with it too.
+
+img { 
+	position: absolute;
+	left: -10000px;
+	float: left;
+}
+ */
+
+
+/* Anchors */
+
+a:link {
+	text-decoration: none;
+	color: blue; 
+}
+
+a:visited { 
+	text-decoration: none;
+	color: blue;
+}
+
+a:hover { 
+	text-decoration: none;
+	color: red;
+}
+
+
+/* TODO: Forms */
+
+/* Doesn't look like we need to do anything with form or label
+ * elements.
+
+/* apparently there are a couple of differences with CSS1 and CSS2
+ * attribute selectors so I'm using both at once 
+ */
+ 
+input, button {
+	color: blue;
+	background-color: black;
+	font: normal medium monospace;
+	border: none;
+}
+
+/* Input Text */
+
+/* preliminary testing reveals there's going to be a big problem with
+ * the <input type="file"> element.
+ */
+
+input.file, input[type="file"],
+input.password, input[type="password"],
+input.text, input[type="text"] {
+	border-bottom: thin dashed blue;
+}
+
+/* In lynx text is white when it is being entered in a text feild. There
+ * is also a convenient "<" which displays when text scrolls. I'm pretty
+ * sure I can't duplicate that. 
+ */
+
+input.file:focus, input[type="file"]:focus,
+input.password:focus, input[type="password"]:focus,
+input.text:focus, input[type="text"]:focus {
+	color: white;
+	background-color: black;
+	border-bottom: thin dashed white;
+}
+
+/* Just to help a bit */
+
+input.file:hover, input[type="file"]:hover,
+input.password:hover, input[type="password"]:hover,
+input.text:hover, input[type="text"]:hover {
+	border-bottom: thin dashed white;
+}
+
+/* Input radio */
+
+/* FIXME: This doesn't work. Probably because firebird is not really using css
+ * to display radio buttons. 
+ */
+
+input.radio, input[type="radio"] {
+	/* nothing I've done in here works possibly this is a display
+	 * property*/
+}
+
+/* Input checkbox */
+
+input.checkbox, input[type="checkbox"] {
+	color: blue;
+	background-color: black;
+	border: none;
+}
+
+/* Some buttons */
+
+/* These need to behave just like regular links currently they are too
+ * wide. Nothing is working to change this. 
+ */
+
+input.submit, input.reset, input[type="submit"], input[type="reset"], 
+button.submit, button.reset, button[type="submit"], button[type="reset"] {
+/* Nothing seems to work here either.
+	padding: none;
+	margin: none; 
+	display: inline;
+ */
+}
+
+input.submit:hover, input.reset:hover, 
+input[type="submit"]:hover, input[type="reset"]:hover, 
+button.submit:hover, button.reset:hover, 
+button[type="submit"]:hover, button[type="reset"]:hover {
+	color: red;
+	background-color: black;
+}
+
+/* lynx doesn't support <input type="button"> or <button type="button">
+ * therefore we don't support them either. Much like the image problem,
+ * we need to figure out how to replace this altogether with "[BUTTON]"
+ */
+
+input.button, input[type="button"], button.button, button[type="button"] {
+	display: inline;
+	color: white;
+	content: "[BUTTON]";
+}
+
+/* Menu selects */
+
+/* Whoa nellie! */
+
+select {
+	color: white;
+	background-color: black;
+	font: normal medium monospace;
+	border: none;
+}
+
+optgroup { 
+	font: normal medium monospace;
+}
+
+option {
+}
+
+/* Textarea */
+
+textarea {
+	color: blue;
+	background-color: black;
+	font: normal medium monospace;
+	border: none;
+}
+
+/* Is there a way to select individual rows in a textarea? */
+
+textarea:focus {
+	color: white;
+	background-color: black;
+}
+/* TODO: It would be really funny if I could make a print stylesheet
+ * that would mimic the output of lynx -dump
+
+@media print {
+
+a:after {
+	content: "[" counter(anchor) "]";
+	counter-increment: anchor;
+}
+
+}
+
+ * there's probably not a way to generate the list of url's anchored in
+ * the page at the bottom though.
+ */
